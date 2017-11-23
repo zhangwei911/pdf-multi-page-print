@@ -116,7 +116,6 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(500, 400));
         setSize(new java.awt.Dimension(500, 400));
 
-        jTextField_pdf.setText("C:\\Users\\swtf\\桌面\\New Document.pdf");
         jTextField_pdf.setToolTipText("pdf文件路径");
 
         jButton_pdf.setText("浏览");
@@ -161,8 +160,6 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         });
 
         jLabel_pageRange.setText("页码范围:");
-
-        jTextField_pageRange.setText("1");
 
         jPanel_padding.setBorder(javax.swing.BorderFactory.createTitledBorder("单页页边距(cm)"));
 
