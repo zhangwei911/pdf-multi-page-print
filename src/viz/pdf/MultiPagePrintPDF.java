@@ -98,12 +98,22 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         jSpinner_margin_left = new javax.swing.JSpinner();
         jLabel_margin_right = new javax.swing.JLabel();
         jSpinner_margin_right = new javax.swing.JSpinner();
+        jPanel_page_padding = new javax.swing.JPanel();
+        jLabel_page_padding_top = new javax.swing.JLabel();
+        jSpinner_page_padding_top = new javax.swing.JSpinner();
+        jLabel_page_padding_bottom = new javax.swing.JLabel();
+        jSpinner_page_padding_bottom = new javax.swing.JSpinner();
+        jLabel_page_padding_left = new javax.swing.JLabel();
+        jSpinner_page_padding_left = new javax.swing.JSpinner();
+        jLabel_page_padding_right = new javax.swing.JLabel();
+        jSpinner_page_padding_right = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PDF多页打印工具");
         setMinimumSize(new java.awt.Dimension(500, 400));
         setSize(new java.awt.Dimension(500, 400));
 
+        jTextField_pdf.setText("C:\\Users\\swtf\\桌面\\New Document.pdf");
         jTextField_pdf.setToolTipText("pdf文件路径");
 
         jButton_pdf.setText("浏览");
@@ -124,6 +134,8 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         jSpinner_column.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel_pageRange.setText("页码范围:");
+
+        jTextField_pageRange.setText("1");
 
         jToggleButton_generateImageFile.setSelected(true);
         jToggleButton_generateImageFile.setText("生成图片文件");
@@ -191,19 +203,17 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         );
         jPanel_paddingLayout.setVerticalGroup(
             jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jSpinner_padding_bottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel_padding_bottom))
-                    .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jSpinner_padding_top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel_padding_top)))
-                .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner_padding_right, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_padding_right)
-                    .addComponent(jSpinner_padding_left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_padding_left)))
+            .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jSpinner_padding_bottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_padding_bottom))
+            .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jSpinner_padding_top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_padding_top))
+            .addGroup(jPanel_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jSpinner_padding_right, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_padding_right)
+                .addComponent(jSpinner_padding_left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_padding_left))
         );
 
         jPanel_margin.setBorder(javax.swing.BorderFactory.createTitledBorder("整页页边距(cm)"));
@@ -260,6 +270,62 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                 .addComponent(jLabel_margin_bottom))
         );
 
+        jPanel_page_padding.setBorder(javax.swing.BorderFactory.createTitledBorder("单页裁剪边距(cm)"));
+
+        jLabel_page_padding_top.setText("上");
+
+        jSpinner_page_padding_top.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
+
+        jLabel_page_padding_bottom.setText("下");
+
+        jSpinner_page_padding_bottom.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
+
+        jLabel_page_padding_left.setText("左");
+
+        jSpinner_page_padding_left.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
+
+        jLabel_page_padding_right.setText("右");
+
+        jSpinner_page_padding_right.setModel(new javax.swing.SpinnerNumberModel(0.0d, null, null, 0.01d));
+
+        javax.swing.GroupLayout jPanel_page_paddingLayout = new javax.swing.GroupLayout(jPanel_page_padding);
+        jPanel_page_padding.setLayout(jPanel_page_paddingLayout);
+        jPanel_page_paddingLayout.setHorizontalGroup(
+            jPanel_page_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_page_paddingLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jLabel_page_padding_top)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSpinner_page_padding_top, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel_page_padding_bottom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSpinner_page_padding_bottom, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addComponent(jLabel_page_padding_left)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSpinner_page_padding_left, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel_page_padding_right)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSpinner_page_padding_right, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
+        );
+        jPanel_page_paddingLayout.setVerticalGroup(
+            jPanel_page_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_page_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jSpinner_page_padding_bottom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_page_padding_bottom))
+            .addGroup(jPanel_page_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jSpinner_page_padding_top, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_page_padding_top))
+            .addGroup(jPanel_page_paddingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jSpinner_page_padding_right, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_page_padding_right)
+                .addComponent(jSpinner_page_padding_left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel_page_padding_left))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -297,7 +363,8 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                         .addComponent(jLabel_status, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton_print))
-                    .addComponent(jPanel_margin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel_margin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel_page_padding, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -324,7 +391,9 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                 .addComponent(jPanel_padding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_margin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_page_padding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_print)
                     .addComponent(jLabel_status))
@@ -568,6 +637,10 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
             int padding_bottom = cmToPx((double) jSpinner_padding_bottom.getValue());
             int padding_left = cmToPx((double) jSpinner_padding_left.getValue());
             int padding_right = cmToPx((double) jSpinner_padding_right.getValue());
+            int page_padding_top = cmToPx((double) jSpinner_page_padding_top.getValue());
+            int page_padding_bottom = cmToPx((double) jSpinner_page_padding_bottom.getValue());
+            int page_padding_left = cmToPx((double) jSpinner_page_padding_left.getValue());
+            int page_padding_right = cmToPx((double) jSpinner_page_padding_right.getValue());
             int margin_top = cmToPx((double) jSpinner_margin_top.getValue());
             int margin_bottom = cmToPx((double) jSpinner_margin_bottom.getValue());
             int margin_left = cmToPx((double) jSpinner_margin_left.getValue());
@@ -578,11 +651,11 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
 //            System.out.println(padding_right);
             for (int i = 0; i < picNum; i++) {
                 buffer = piclist.get(i);
-                heightArray[i] = _height = buffer.getHeight();// 图片高度  
+                heightArray[i] = _height = buffer.getHeight() - (page_padding_top + page_padding_bottom);// 图片高度  
 //            if (i == 0) {  
 //                width = buffer.getWidth();// 图片宽度  
 //            }  
-                widthArray[i] = _width = buffer.getWidth();// 图片宽度 
+                widthArray[i] = _width = buffer.getWidth() - (page_padding_left + page_padding_right);// 图片宽度 
                 if (i < column) {
                     width += _width; // 获取总宽度  
                 }
@@ -590,7 +663,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                     height += _height; // 获取总高度  
                 }
                 _imgRGB = new int[_width * _height];// 从图片中读取RGB  
-                _imgRGB = buffer.getRGB(0, 0, _width, _height, _imgRGB, 0, _width);
+                _imgRGB = buffer.getRGB(page_padding_left, page_padding_top, _width, _height, _imgRGB, 0, _width);
                 imgRGB.add(_imgRGB);
             }
             _height = 0; // 设置偏移高度为0 
@@ -749,11 +822,16 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_padding_right;
     private javax.swing.JLabel jLabel_padding_top;
     private javax.swing.JLabel jLabel_pageRange;
+    private javax.swing.JLabel jLabel_page_padding_bottom;
+    private javax.swing.JLabel jLabel_page_padding_left;
+    private javax.swing.JLabel jLabel_page_padding_right;
+    private javax.swing.JLabel jLabel_page_padding_top;
     private javax.swing.JLabel jLabel_pdf;
     private javax.swing.JLabel jLabel_row;
     private javax.swing.JLabel jLabel_status;
     private javax.swing.JPanel jPanel_margin;
     private javax.swing.JPanel jPanel_padding;
+    private javax.swing.JPanel jPanel_page_padding;
     private javax.swing.JSpinner jSpinner_column;
     private javax.swing.JSpinner jSpinner_margin_bottom;
     private javax.swing.JSpinner jSpinner_margin_left;
@@ -763,6 +841,10 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
     private javax.swing.JSpinner jSpinner_padding_left;
     private javax.swing.JSpinner jSpinner_padding_right;
     private javax.swing.JSpinner jSpinner_padding_top;
+    private javax.swing.JSpinner jSpinner_page_padding_bottom;
+    private javax.swing.JSpinner jSpinner_page_padding_left;
+    private javax.swing.JSpinner jSpinner_page_padding_right;
+    private javax.swing.JSpinner jSpinner_page_padding_top;
     private javax.swing.JSpinner jSpinner_row;
     private javax.swing.JTextField jTextField_pageRange;
     private javax.swing.JTextField jTextField_pdf;

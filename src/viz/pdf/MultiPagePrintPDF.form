@@ -72,6 +72,7 @@
                       <Component id="jButton_print" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jPanel_margin" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jPanel_page_padding" alignment="1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -104,7 +105,9 @@
               <Component id="jPanel_padding" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel_margin" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="174" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel_page_padding" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="122" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jButton_print" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel_status" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -117,6 +120,7 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="jTextField_pdf">
       <Properties>
+        <Property name="text" type="java.lang.String" value="C:\u005cUsers\u005cswtf\u005c&#x684c;&#x9762;\u005cNew Document.pdf" containsInvalidXMLChars="true"/>
         <Property name="toolTipText" type="java.lang.String" value="pdf&#x6587;&#x4ef6;&#x8def;&#x5f84;"/>
       </Properties>
       <AuxValues>
@@ -166,6 +170,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField_pageRange">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="1"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JToggleButton" name="jToggleButton_generateImageFile">
       <Properties>
@@ -230,23 +237,19 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="jSpinner_padding_bottom" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel_padding_bottom" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jSpinner_padding_top" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel_padding_top" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jSpinner_padding_right" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel_padding_right" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSpinner_padding_left" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel_padding_left" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Component id="jSpinner_padding_bottom" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_padding_bottom" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jSpinner_padding_top" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_padding_top" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jSpinner_padding_right" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_padding_right" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinner_padding_left" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_padding_left" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -393,6 +396,109 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="jSpinner_margin_right">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel_page_padding">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="&#x5355;&#x9875;&#x88c1;&#x526a;&#x8fb9;&#x8ddd;(cm)"/>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                  <Component id="jLabel_page_padding_top" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSpinner_page_padding_top" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="jLabel_page_padding_bottom" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSpinner_page_padding_bottom" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace pref="50" max="32767" attributes="0"/>
+                  <Component id="jLabel_page_padding_left" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSpinner_page_padding_left" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="jLabel_page_padding_right" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jSpinner_page_padding_right" min="-2" pref="60" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Component id="jSpinner_page_padding_bottom" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_page_padding_bottom" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Component id="jSpinner_page_padding_top" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_page_padding_top" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                  <Component id="jSpinner_page_padding_right" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_page_padding_right" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSpinner_page_padding_left" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel_page_padding_left" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="jLabel_page_padding_top">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x4e0a;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jSpinner_page_padding_top">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel_page_padding_bottom">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x4e0b;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jSpinner_page_padding_bottom">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel_page_padding_left">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x5de6;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jSpinner_page_padding_left">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel_page_padding_right">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="&#x53f3;"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="jSpinner_page_padding_right">
           <Properties>
             <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
               <SpinnerModel initial="0.0" numberType="java.lang.Double" stepSize="0.01" type="number"/>
