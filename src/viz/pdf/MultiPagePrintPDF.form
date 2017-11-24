@@ -175,7 +175,9 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButton_print_mode">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="&#x5355;&#x9762;&#x6253;&#x5370;"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="SPrint" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton_print_modeActionPerformed"/>
@@ -184,7 +186,9 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButton_generateImageFile">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="&#x751f;&#x6210;&#x56fe;&#x7247;&#x6587;&#x4ef6;"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="GeneratePDF" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton_generateImageFileActionPerformed"/>
@@ -193,7 +197,9 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButton_orientation">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="label" type="java.lang.String" value="&#x6a2a;&#x5411;"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="HPrint" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton_orientationActionPerformed"/>
@@ -515,7 +521,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton_print">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&#x6253;&#x5370;"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="Print" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_printActionPerformed"/>
@@ -524,7 +532,9 @@
     <Component class="javax.swing.JToggleButton" name="jToggleButton_double_print_option">
       <Properties>
         <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="&#x53cd;&#x9762;&#x5012;&#x5e8f;&#x6253;&#x5370;"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="BDescPrint" type="code"/>
+        </Property>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton_double_print_optionActionPerformed"/>

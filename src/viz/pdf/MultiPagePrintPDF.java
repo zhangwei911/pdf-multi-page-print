@@ -41,6 +41,7 @@ import oracle.jrockit.jfr.events.ContentTypeImpl;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -136,7 +137,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         jSpinner_column.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jToggleButton_print_mode.setSelected(true);
-        jToggleButton_print_mode.setText("单面打印");
+        jToggleButton_print_mode.setText(SPrint);
         jToggleButton_print_mode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton_print_modeActionPerformed(evt);
@@ -144,7 +145,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         });
 
         jToggleButton_generateImageFile.setSelected(true);
-        jToggleButton_generateImageFile.setText("生成图片文件");
+        jToggleButton_generateImageFile.setText(GeneratePDF);
         jToggleButton_generateImageFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton_generateImageFileActionPerformed(evt);
@@ -152,7 +153,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         });
 
         jToggleButton_orientation.setSelected(true);
-        jToggleButton_orientation.setLabel("横向");
+        jToggleButton_orientation.setText(HPrint);
         jToggleButton_orientation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jToggleButton_orientationActionPerformed(evt);
@@ -327,7 +328,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                 .addComponent(jLabel_page_padding_left))
         );
 
-        jButton_print.setText("打印");
+        jButton_print.setText(Print);
         jButton_print.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_printActionPerformed(evt);
@@ -335,7 +336,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         });
 
         jToggleButton_double_print_option.setSelected(true);
-        jToggleButton_double_print_option.setText("反面倒序打印");
+        jToggleButton_double_print_option.setText(BDescPrint);
         jToggleButton_double_print_option.setVisible(false);
         jToggleButton_double_print_option.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -440,6 +441,13 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
     private boolean isF = true;//正面/反面
 
     private void jButton_printActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_printActionPerformed
+        //测试
+//        jTextField_pdf.setText("C:\\Users\\swtf\\桌面\\New Document.pdf");
+//        jSpinner_row.setValue(2);
+//        jSpinner_column.setValue(4);
+//        jTextField_pageRange.setText("1-8");
+//        jToggleButton_print_mode.setSelected(false);
+//        isSinglePrint = false;
         String pdfPath = jTextField_pdf.getText().toString();
         int row = (int) jSpinner_row.getValue();
         int column = (int) jSpinner_column.getValue();
@@ -448,12 +456,12 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
             return;
         }
 //生成文件
-//        if (isGenerateImageFile) {
-//            if (pdd == null) {
-//                oPath = file.getParent();
-//                pdd = new PDDocument();
-//            }
-//        }
+        if (isGenerateImageFile) {
+            if (pdd == null) {
+                oPath = file.getParent();
+                pdd = new PDDocument();
+            }
+        }
         String pageRange = jTextField_pageRange.getText().toString();
         List<Integer> pageIndexes = new ArrayList<>();
         if (pageRange.length() > 0) {
@@ -594,7 +602,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                     pageIndexes.add(pageIndexesTmp.get(i));
                 }
             }
-            isOdd = Math.ceil(piSize / rc) % 2 == 1;
+            isOdd = Math.ceil((double) piSize / rc) % 2 == 1;
             if (isOdd) {
                 for (int i = 0; i < rc; i++) {
                     pageIndexes.add(0, -1);
@@ -608,7 +616,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                     pageIndexes.add(pageIndexesTmp.get(i));
                 }
             }
-            isOdd = Math.ceil(piSize / rc) % 2 == 1;
+            isOdd = Math.ceil((double) piSize / rc) % 2 == 1;
             if (isOdd) {
                 for (int i = 0; i < rc; i++) {
                     pageIndexes.add(-1);
@@ -638,34 +646,45 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
     }
 
     private boolean isGenerateImageFile = true;//生成图片/打印
+    private final String GeneratePDF = "生成PDF文件";
+    private final String DirectPrint = "直接打印";
 
     private void jToggleButton_generateImageFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_generateImageFileActionPerformed
         isGenerateImageFile = jToggleButton_generateImageFile.isSelected();
-        jToggleButton_generateImageFile.setText(isGenerateImageFile ? "生成图片文件" : "直接打印");
+        jToggleButton_generateImageFile.setText(isGenerateImageFile ? GeneratePDF : DirectPrint);
     }//GEN-LAST:event_jToggleButton_generateImageFileActionPerformed
 
     private boolean isH = true;//横向/纵向
+    private final String HPrint = "横向";
+    private final String VPrint = "纵向";
 
     private void jToggleButton_orientationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_orientationActionPerformed
         isH = jToggleButton_orientation.isSelected();
-        jToggleButton_orientation.setText(isH ? "横向" : "纵向");
+        jToggleButton_orientation.setText(isH ? HPrint : VPrint);
     }//GEN-LAST:event_jToggleButton_orientationActionPerformed
 
     private boolean isSinglePrint = true;//单面/双面
+    private final String SPrint = "单面打印";
+    private final String DPrint = "双面打印";
+    private final String APrint = "打印正面";
+    private final String DescPrint = "打印反面";
+    private final String Print = "打印";
 
     private void jToggleButton_print_modeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_print_modeActionPerformed
         isSinglePrint = jToggleButton_print_mode.isSelected();
-        jToggleButton_print_mode.setText(isSinglePrint ? "单面打印" : "双面打印");
-        jButton_print.setText(isSinglePrint ? "打印" : "打印正面");
+        jToggleButton_print_mode.setText(isSinglePrint ? SPrint : DPrint);
+        jButton_print.setText(isSinglePrint ? Print : APrint);
         jToggleButton_double_print_option.setVisible(!isSinglePrint);
         isF = true;
     }//GEN-LAST:event_jToggleButton_print_modeActionPerformed
 
     private boolean isDesc = true;//倒序/正序
+    private final String BDescPrint = "反面倒序打印";
+    private final String BAPrint = "反面正序打印";
 
     private void jToggleButton_double_print_optionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_double_print_optionActionPerformed
         isDesc = jToggleButton_double_print_option.isSelected();
-        jToggleButton_double_print_option.setText(isDesc ? "反面倒序打印" : "反面正序打印");
+        jToggleButton_double_print_option.setText(isDesc ? BDescPrint : BAPrint);
     }//GEN-LAST:event_jToggleButton_double_print_optionActionPerformed
 
     private boolean isLastPage = false;
@@ -727,7 +746,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                     singleThreadExecutor.execute(new Runnable() {
                         @Override
                         public void run() {
-                            yPic(piclist, outpath, row, column, ps);
+                            yPic(piclist, pdfFile, row, column, ps);
                             piclist.clear();
                         }
 
@@ -742,20 +761,21 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         }
     }
     //生成文件
-    //    private static String oPath = "";
-    //    private static PDDocument pdd = null;
+    private static String oPath = "";
+    private static PDDocument pdd = null;
 
     /**
      * 将宽度相同的图片，竖向追加在一起 ##注意：宽度必须相同
      *
      * @param piclist 文件流数组
-     * @param outPath 输出路径
+     * @param pdfFile pdf文件
      */
-    public void yPic(List<BufferedImage> piclist, String outPath, int row, int column, PrintService ps) {// 纵向处理图片  
+    public void yPic(List<BufferedImage> piclist, String pdfPath, int row, int column, PrintService ps) {// 纵向处理图片  
         if (piclist == null || piclist.size() <= 0) {
             System.out.println("图片数组为空!");
             return;
         }
+        File pdfFile = new File(pdfPath);
         try {
             int height = 0, // 总高度  
                     width = 0, // 总宽度  
@@ -848,21 +868,25 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                 int mr = (i == lineCount ? margin_right : 0);
                 dg.drawLine(w * i + margin_left, margin_top, w * i + margin_left, h * row + margin_top);
             }
-//            PDPageContentStream content = null;//生成文件
-            if (outPath != null) {
-                File outFile = new File(outPath, System.currentTimeMillis() + ".jpg");
-                ImageIO.write(imageResult, "jpg", outFile);// 写图片  
+            PDPageContentStream content = null;//生成文件
+            if (isGenerateImageFile) {
+//                File outFile = new File(pdfFile.getParent(), (!isSinglePrint?(isF?"正面-":"反面-"):"")+pdfFile.getName()+System.currentTimeMillis() + ".jpg");
+//                ImageIO.write(imageResult, "jpg", outFile);// 写图片  
 //生成文件
-//                PDPage pdp = new PDPage();
-//                pdd.addPage(pdp);
-//                PDImageXObject ximage = null;
-//                ByteArrayOutputStream os = new ByteArrayOutputStream();
-//                ImageIO.write(imageResult, "jpg", os);
-//                InputStream is = new ByteArrayInputStream(os.toByteArray());
-//                ximage = JPEGFactory.createFromStream(pdd, is);
-//                content = new PDPageContentStream(pdd, pdp);
-//                content.drawImage(ximage, 0, 0, __width, __height);
-//                content.close();
+                int imgW = (__width + padding_left + padding_right - page_padding_left - page_padding_right) * column + margin_left + margin_right,
+                        imgH = (__height + padding_top + padding_bottom - page_padding_top - page_padding_bottom) * row + margin_top + margin_bottom;
+                PDPage pdp = new PDPage();
+                PDRectangle pdr = new PDRectangle(imgW, imgH);
+                pdp.setMediaBox(pdr);
+                pdd.addPage(pdp);
+                PDImageXObject ximage = null;
+                ByteArrayOutputStream os = new ByteArrayOutputStream();
+                ImageIO.write(imageResult, "jpg", os);
+                InputStream is = new ByteArrayInputStream(os.toByteArray());
+                ximage = JPEGFactory.createFromStream(pdd, is);
+                content = new PDPageContentStream(pdd, pdp);
+                content.drawImage(ximage, 0, 0, imgW, imgH);
+                content.close();
             } else {
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
                 ImageIO.write(imageResult, "jpg", os);
@@ -881,21 +905,22 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                 jLabel_status.setText(getFrontOrBack() + "打印完成");
                 if (!isSinglePrint) {
                     isF = !isF;
-                    jButton_print.setText(isF ? "打印正面" : "打印反面");
+                    jButton_print.setText(isF ? APrint : DescPrint);
                     jToggleButton_double_print_option.setVisible(!isF);
                 }
                 jButton_print.setEnabled(true);
                 //生成文件
-//                if (isGenerateImageFile) {
-//                    try {
-//                        pdd.save(new File(oPath, "out.pdf"));
-//                    } catch (Exception e) {
-//                        jLabel_status.setText(e.getMessage());
-//                        e.printStackTrace();
-//                    }
-//                    oPath = null;
-//                    pdd = null;
-//                }
+                if (isGenerateImageFile) {
+                    try {
+                        pdd.save(new File(oPath, "out.pdf"));
+                    } catch (Exception e) {
+                        jLabel_status.setText(e.getMessage());
+                        e.printStackTrace();
+                    }
+                    oPath = null;
+                    pdd.close();
+                    pdd = null;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
