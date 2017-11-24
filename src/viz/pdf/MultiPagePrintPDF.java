@@ -658,6 +658,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         jToggleButton_print_mode.setText(isSinglePrint ? "单面打印" : "双面打印");
         jButton_print.setText(isSinglePrint ? "打印" : "打印正面");
         jToggleButton_double_print_option.setVisible(!isSinglePrint);
+        isF = true;
     }//GEN-LAST:event_jToggleButton_print_modeActionPerformed
 
     private boolean isDesc = true;//倒序/正序
