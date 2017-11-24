@@ -566,8 +566,8 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
     private boolean isOdd = false;//需要打印的页数为单数
 
     /**
-     * 双面打印时获取正面/反面索引
-     * 当打印页面总数为单数添加索引为-1作为标记
+     * 双面打印时获取正面/反面索引 当打印页面总数为单数添加索引为-1作为标记
+     *
      * @param pageIndexesTmp 传入总索引
      * @param row 行
      * @param column 列
@@ -620,8 +620,9 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
 
     /**
      * 判断是否为数字
+     *
      * @param str
-     * @return 
+     * @return
      */
     private boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
@@ -686,16 +687,14 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
             PDFRenderer renderer = new PDFRenderer(pdf);
             List<BufferedImage> piclist = new ArrayList<>();
             BufferedImage bi1 = null;
-            if (!isSinglePrint && isOdd) {
-                try {
-                    BufferedImage bi = renderer.renderImage(0);
-                    bi1 = new BufferedImage(bi.getWidth(), bi.getHeight(), bi.getType());
-                    Graphics2D dg1 = (Graphics2D) bi1.createGraphics();
-                    dg1.setColor(Color.WHITE);//设置笔刷白色
-                    dg1.fillRect(0, 0, bi.getWidth(), bi.getHeight());//填充整个屏幕
-                } catch (IOException ex) {
-                    Logger.getLogger(MultiPagePrintPDF.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try {
+                BufferedImage bi = renderer.renderImage(0);
+                bi1 = new BufferedImage(bi.getWidth(), bi.getHeight(), bi.getType());
+                Graphics2D dg1 = (Graphics2D) bi1.createGraphics();
+                dg1.setColor(Color.WHITE);//设置笔刷白色
+                dg1.fillRect(0, 0, bi.getWidth(), bi.getHeight());//填充整个屏幕
+            } catch (IOException ex) {
+                Logger.getLogger(MultiPagePrintPDF.class.getName()).log(Level.SEVERE, null, ex);
             }
             int pageIndexSize = pageIndexes.size();
             int pageCount = 1;
@@ -905,8 +904,9 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
 
     /**
      * 转换厘米为px
+     *
      * @param cm
-     * @return 
+     * @return
      */
     private int cmToPx(double cm) {
         return (int) (cm * dpi / 2.54);
@@ -914,8 +914,9 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
 
     /**
      * 转换px为厘米
+     *
      * @param px
-     * @return 
+     * @return
      */
     private double pxToCm(int px) {
         return (double) (px * 2.54 / dpi);
