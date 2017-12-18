@@ -42,6 +42,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
+import org.apache.pdfbox.pdmodel.font.PDSimpleFont;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.JPEGFactory;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -111,6 +114,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         jLabel_status = new javax.swing.JLabel();
         jButton_print = new javax.swing.JButton();
         jToggleButton_double_print_option = new javax.swing.JToggleButton();
+        jToggleButton_page = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PDF多页打印工具");
@@ -344,6 +348,15 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
             }
         });
 
+        jToggleButton_page.setSelected(true);
+        jToggleButton_page.setText(HPrint);
+        jToggleButton_page.setLabel(DoNotPrintPage);
+        jToggleButton_page.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton_pageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -375,10 +388,6 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                                 .addComponent(jToggleButton_generateImageFile)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jToggleButton_orientation))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel_pageRange)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField_pageRange))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel_status, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
@@ -387,7 +396,13 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                     .addComponent(jPanel_page_padding, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jToggleButton_double_print_option)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel_pageRange)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_pageRange)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton_page)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -410,7 +425,8 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_pageRange)
-                    .addComponent(jTextField_pageRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField_pageRange, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jToggleButton_page))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_padding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -419,7 +435,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                 .addComponent(jPanel_page_padding, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jToggleButton_double_print_option)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_print)
                     .addComponent(jLabel_status))
@@ -687,7 +703,19 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
         jToggleButton_double_print_option.setText(isDesc ? BDescPrint : BAPrint);
     }//GEN-LAST:event_jToggleButton_double_print_optionActionPerformed
 
+    private boolean isPrintPage = false;
+    private String PrintPage = "打印页码";
+    private String DoNotPrintPage = "不打印页码";
+    
+    private void jToggleButton_pageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton_pageActionPerformed
+        isPrintPage = !isPrintPage;
+        jToggleButton_page.setText(isPrintPage ? PrintPage : DoNotPrintPage);
+    }//GEN-LAST:event_jToggleButton_pageActionPerformed
+
     private boolean isLastPage = false;
+    private int page = 0;
+    
+    private ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
 
     /**
      * 将pdf中的maxPage页，转换成一张图片
@@ -718,13 +746,14 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
             }
             int pageIndexSize = pageIndexes.size();
             int pageCount = 1;
-            ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
             for (int i = 0; i < pageIndexSize; i++) {
 //                System.out.println(pageIndexes.get(i));
                 int piv = pageIndexes.get(i);
                 BufferedImage renderImage = (piv == -1) ? bi1 : renderer.renderImage(piv);
                 piclist.add(renderImage);
+//                System.out.println("(i + 1) % (row * column):"+(i + 1) % (row * column));
                 if (((i + 1) % (row * column) == 0 && row * column < pageIndexSize) || i == pageIndexSize - 1) {
+//                    System.out.println("i:"+i);
                     String pStr = String.format(getFrontOrBack() + "打印第%d页\n", pageCount);
                     isLastPage = false;
                     if (i == pageIndexSize - 1) {
@@ -743,15 +772,16 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
 //                    System.out.println(piclist.size());
                     System.out.println(pStr);
                     jLabel_status.setText(pStr);
-                    singleThreadExecutor.execute(new Runnable() {
-                        @Override
-                        public void run() {
+//                    singleThreadExecutor.execute(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                        }
+//
+//                    });
+                    page++;
+                    pageCount++;
                             yPic(piclist, pdfFile, row, column, ps);
                             piclist.clear();
-                        }
-
-                    });
-                    pageCount++;
                 }
             }
             pdf.close();
@@ -775,6 +805,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
             System.out.println("图片数组为空!");
             return;
         }
+//        System.out.println("piclistSize:"+piclist.size());
         File pdfFile = new File(pdfPath);
         try {
             int height = 0, // 总高度  
@@ -854,9 +885,18 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
 //                System.out.println(_width + padding_left * wi + padding_right * (wi - 1));
 //                System.out.println(_height + padding_top * hi + padding_bottom * (hi - 1));
                 imageResult.setRGB(_width + padding_left * wi + padding_right * (wi - 1) + margin_left, _height + padding_top * hi + padding_bottom * (hi - 1) + margin_top, __width, __height, imgRGB.get(i), 0, __width); // 写入流中  
+                if(isPrintPage){
+                    dg.setColor(Color.BLACK);
+                    int pageT = (isSinglePrint?(((page-1)*row*column+i+1)):(isF?((2*page-1-1)*row*column+i+1):((2*page-1)*row*column+i+1)));
+//                System.out.println("page:"+pageT);
+                    dg.drawString(pageT+"", _width + padding_left * wi + padding_right * (wi - 1) + margin_left + 10, _height + padding_top * hi + padding_bottom * (hi - 1) + margin_top + __height - 10);
+                }
             }
             int lineCount = row - 1;
             dg.setColor(Color.red);
+            if(isPrintPage){
+                dg.drawString("page:"+(isSinglePrint?page:(isF?(2*page-1):2*page)), 10, 10);
+            }
             int w = (__width + padding_left + padding_right);
             int h = (__height + padding_top + padding_bottom);
             for (int i = 1; i <= lineCount; i++) {
@@ -921,6 +961,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
                     pdd.close();
                     pdd = null;
                 }
+                page = 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1030,6 +1071,7 @@ public class MultiPagePrintPDF extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton_double_print_option;
     private javax.swing.JToggleButton jToggleButton_generateImageFile;
     private javax.swing.JToggleButton jToggleButton_orientation;
+    private javax.swing.JToggleButton jToggleButton_page;
     private javax.swing.JToggleButton jToggleButton_print_mode;
     // End of variables declaration//GEN-END:variables
 }
